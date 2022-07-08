@@ -8,6 +8,7 @@
     height: 150px;
     align-items: center;
     box-shadow: 2px 3px 8px 1px grey;
+    border-radius: 6px;
     padding: 25px;
 }
 
