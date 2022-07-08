@@ -34,17 +34,12 @@ export class App extends Component {
       
         )
     }
-   
-    // console.log(contact)
-
   }
 
   deleteContact = (todoId) => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== todoId)
     }))
-//    this.state.contacts.filter(contact => contact.id !== e.target.id)
-// console.log(e.target.elements)
   }
 
   changeFilter = (e) => {

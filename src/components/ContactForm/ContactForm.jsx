@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import css from './ContactForm.module.css';
 const DEFAUL_STATE = {
     name: "",
     number: "",
 }
 export  class ContactForm extends Component {
- 
+    static propTypes = {
+       
+        onSubmit: PropTypes.func.isRequired,
+      };
   
     state = {
         name: "",
@@ -14,21 +19,13 @@ export  class ContactForm extends Component {
 
 handleSubmit = (e) => {
     e.preventDefault();
-//    const {name, number} = this.state
-//    console.log(name, number);
-// const { name, number } = this.state;
 const { onSubmit } = this.props;
 onSubmit(this.state)
-//    this.props.onSubmit(this.state);
    this.setState(DEFAUL_STATE)
-// console.log(this.state)
 }
 
 handleChange = (e) => {
     this.setState({[e.target.name] : e.target.value});
-    // console.log(e.target.name)
-
-    // console.log(e.target.value)
 }
 
     render () {
