@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import { nanoid } from 'nanoid';
 import {ContactForm} from './ContactForm/ContactForm';
 import {ContactList} from './ContactList/ContactList';
+import {Filter} from './Filter/Filter';
+
 
 
 
@@ -17,25 +20,42 @@ export class App extends Component {
     
   }
 
-  // addContact = (data) => {
-  //   const {name, number} = data;
-  //   const {contacts} = this.state
-  //   const contact = {
-  //     name,
-  //     number,
-      
-  //   };
-  //   this.setState(({contacts}) => ({
-  //   contacts: [...contacts, contact],
+  addContact = ({name, number}) => {
+    const contact = {id: nanoid(), name, number};
 
-  //   }))
+    this.setState(({contacts}) => ({
+      contacts: [contact, ...contacts]
+    })
+    
+      );
+    // console.log(contact)
 
-  // }
+  }
+
+  changeFilter = (e) => {
+this.setState({
+  filter: e.target.value
+})
+  }
+
+ 
 
   render() {
+    const {contacts, filter} = this.state
+    const normalizedFilter = filter.toLocaleLowerCase();
+    const filteredContacts = contacts.filter(contact => contact.name.toLocaleLowerCase().includes(normalizedFilter));
+    
     return <>
-    <ContactForm/>
-    <ContactList contacts={this.state.contacts}/>
+    <ContactForm 
+    onSubmit={this.addContact}
+    />
+    < Filter 
+    filter={filter} 
+    onChange={this.changeFilter}
+    />
+    <ContactList 
+    contacts={filter === "" ? contacts : filteredContacts}
+    />
     </>
   }
 }
